@@ -1,0 +1,47 @@
+{
+  "engagement": "kaltrixos-security-audit",
+  "target": "https://kaltrixos.com/",
+  "table": "listings",
+  "exported_at": "2026-11-03T01:33:48.410Z",
+  "accessed_as": "authenticated test user",
+  "anon_status": 401,
+  "anon_rows_sample": null,
+  "auth_status": 200,
+  "row_count": 3,
+  "columns_exported": [
+    "id",
+    "business_id",
+    "price",
+    "is_active",
+    "created_at"
+  ],
+  "redacted_columns": [
+    "name",
+    "description",
+    "image_url"
+  ],
+  "redaction_notes": "Authenticated users can read listings for other businesses. Only catalog metadata exported; name, description, image_url omitted.",
+  "rows": [
+    {
+      "id": "482b74d8-5ad9-4918-9f37-a2e7b6e8df1e",
+      "business_id": "6820729f-23d9-4071-a86e-b39753bb7e3e",
+      "price": 15000,
+      "is_active": true,
+      "created_at": "2026-10-16T20:49:30.875149+00:00"
+    },
+    {
+      "id": "cc6bf3b1-0083-4979-a83a-764622e98dc5",
+      "business_id": "de3fbb21-1bec-4b94-b5be-fa6cfdee0c9f",
+      "price": 0,
+      "is_active": true,
+      "created_at": "2026-10-25T10:58:53.60412+00:00"
+    },
+    {
+      "id": "0b063139-d545-47e7-a564-142a8791e656",
+      "business_id": "58d0d29f-8cfa-43d3-94b9-992a03819c1d",
+      "price": 0,
+      "is_active": true,
+      "created_at": "2026-10-25T10:59:50.854404+00:00"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "engagement": "kaltrixos-security-audit",
+  "target": "https://kaltrixos.com/",
+  "table": "rate_limits",
+  "exported_at": "2026-11-03T01:33:49.117Z",
+  "accessed_as": "authenticated test user",
+  "anon_status": 401,
+  "anon_rows_sample": null,
+  "auth_status": 403,
+  "row_count": 0,
+  "columns_exported": [],
+  "redacted_columns": [],
+  "redaction_notes": "Access denied (403) to the authenticated test user; no rows.",
+  "rows": [],
+  "access_note": "permission denied for table rate_limits"
+}

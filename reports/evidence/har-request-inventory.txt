@@ -1,0 +1,59 @@
+KaltrixOS - HAR Request Inventory (sanitized)
+Source: authenticated dashboard HAR, captured 2026-11-03
+Raw HAR: personal/har/kaltrixos.com.har (gitignored)
+Redactions: no header values, no query values, no response values, no UUIDs, no PII.
+
+Hosts observed
+- kaltrixos.com (40)
+- fgkdkyhnokijbxyxcgug.supabase.co (57)
+- www.googletagmanager.com (1)
+- o4512233926033408.ingest.de.sentry.io (1)
+
+Dashboard routes loaded
+- /dashboard
+- /dashboard/invoices/new
+- /dashboard/profile
+- /dashboard/customers/new
+- /dashboard/bookings/new
+- /dashboard/listings/new
+- /dashboard/feedback
+- /dashboard/upgrade
+
+Supabase tables observed
+- profiles
+- businesses
+- subscriptions
+- messages
+- business_payment_details
+- notifications
+- bookings
+- customers
+- invoices
+- listings        <-- not in the first access-control matrix
+- expenses        <-- not in the first access-control matrix
+
+Supabase RPCs observed
+- get_business_pulse      (body: p_business_id, p_period_days)
+- get_inventory_overview  (body: p_business_id, p_status, p_search, p_limit, p_offset)
+
+Client query shapes (column lists are schema detail, not PII)
+- profiles: select=name,role filter=id
+- businesses: select=* filter=user_id
+- subscriptions: select=plan,status,expires_at filter=business_id
+- messages: select=* filter=business_id order=created_at.desc
+- business_payment_details: select=bank_name,account_name,account_number,payment_instructions filter=business_id
+- notifications: select=id,type,title,body,href,created_at,read_at filter=business_id order=created_at.desc limit=20
+- notifications (HEAD): select=id filter=business_id,read_at
+- bookings: select=* filter=business_id order=created_at.desc
+- customers: select=* filter=business_id order=created_at.desc
+- invoices: select=* filter=business_id order=created_at.desc
+- listings: select=* filter=business_id order=created_at.desc
+- expenses: select=* filter=business_id order=expense_date.desc limit=8
+
+Notes
+- The dashboard supplies business_id / user_id / id values from the client. This makes
+  the RPCs and business_payment_details the highest-value IDOR candidates.
+- The exported HAR contained no Authorization header, but the responses match the
+  authorized test account, so the header was stripped by the export. The HAR does not
+  prove anonymous access by itself.
+- Third parties: Google Tag Manager and Sentry are loaded from the dashboard.

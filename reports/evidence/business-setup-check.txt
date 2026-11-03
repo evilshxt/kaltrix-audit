@@ -1,0 +1,29 @@
+KaltrixOS business setup check (authorized test account only)
+Run: 2026-11-03T01:11:55.382Z
+Project host: fgkdkyhnokijbxyxcgug.supabase.co
+Test user: f3411683-3e65-4922-a2a0-3199f98c9e95
+
+Own business before:
+  business_name: Kaltrix Labs
+  slug: (empty)
+  logo_url: (set)
+  email: (set)
+  address: (set)
+
+Slug candidate kaltrix-labs-assessment: HTTP 200, matches=0
+[OK] slug set: HTTP 200, slug=kaltrix-labs-assessment
+
+Anonymous app-discover read:
+  business_name: Kaltrix Labs
+  slug: kaltrix-labs-assessment
+  logo_url: (set)
+
+Anonymous email/address read on test business (KAL-AC-001):
+  HTTP 200, rows=1, email_present=true, address_present=true
+
+Public page GET /business/kaltrix-labs-assessment: HTTP 200, bytes=18896
+  contains business name: true
+  contains logo object path: false
+
+Limitations: no browser automation; public-page check is an unauthenticated HTTP fetch.
+All writes were on the authorized test account/business.

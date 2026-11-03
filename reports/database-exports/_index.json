@@ -1,0 +1,110 @@
+{
+  "engagement": "kaltrixos-security-audit",
+  "target": "https://kaltrixos.com/",
+  "exported_at": "2026-11-03T01:33:49.119Z",
+  "note": "One JSON file per table. Sensitive fields are redacted per the engagement rules.",
+  "tables": [
+    {
+      "table": "businesses",
+      "auth_status": 200,
+      "anon_status": 200,
+      "rows": 10
+    },
+    {
+      "table": "profiles",
+      "auth_status": 200,
+      "anon_status": 200,
+      "rows": 1
+    },
+    {
+      "table": "subscriptions",
+      "auth_status": 200,
+      "anon_status": 401,
+      "rows": 1
+    },
+    {
+      "table": "leads",
+      "auth_status": 200,
+      "anon_status": 200,
+      "rows": 0
+    },
+    {
+      "table": "customers",
+      "auth_status": 200,
+      "anon_status": 401,
+      "rows": 0
+    },
+    {
+      "table": "bookings",
+      "auth_status": 200,
+      "anon_status": 401,
+      "rows": 0
+    },
+    {
+      "table": "invoices",
+      "auth_status": 200,
+      "anon_status": 401,
+      "rows": 0
+    },
+    {
+      "table": "messages",
+      "auth_status": 200,
+      "anon_status": 401,
+      "rows": 0
+    },
+    {
+      "table": "notifications",
+      "auth_status": 200,
+      "anon_status": 401,
+      "rows": 0
+    },
+    {
+      "table": "inventory_items",
+      "auth_status": 200,
+      "anon_status": 401,
+      "rows": 0
+    },
+    {
+      "table": "business_payment_details",
+      "auth_status": 200,
+      "anon_status": 401,
+      "rows": 0
+    },
+    {
+      "table": "email_logs",
+      "auth_status": 200,
+      "anon_status": 200,
+      "rows": 0
+    },
+    {
+      "table": "feedback",
+      "auth_status": 200,
+      "anon_status": 401,
+      "rows": 0
+    },
+    {
+      "table": "reviews",
+      "auth_status": 200,
+      "anon_status": 401,
+      "rows": 1
+    },
+    {
+      "table": "listings",
+      "auth_status": 200,
+      "anon_status": 401,
+      "rows": 3
+    },
+    {
+      "table": "expenses",
+      "auth_status": 200,
+      "anon_status": 401,
+      "rows": 0
+    },
+    {
+      "table": "rate_limits",
+      "auth_status": 403,
+      "anon_status": 401,
+      "rows": 0
+    }
+  ]
+}

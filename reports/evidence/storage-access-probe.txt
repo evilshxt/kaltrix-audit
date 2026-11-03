@@ -1,0 +1,18 @@
+KaltrixOS anonymous/auth storage access probe
+Run: 2026-11-03T01:13:08.762Z
+Project host: fgkdkyhnokijbxyxcgug.supabase.co
+Test user: f3411683-3e65-4922-a2a0-3199f98c9e95
+
+Bucket metadata:
+  anon: HTTP 400 Bucket not found
+  auth: HTTP 400 Bucket not found
+
+Object list (root, limit 100):
+  auth: HTTP 200, objects=0, own_prefix=0 (names not printed)
+  anon: HTTP 200, objects=0, own_prefix=0 (names not printed)
+
+Anonymous upload test: logos/anon-security-test-1793668390853.png (68 bytes, image/png)
+  [BLOCKED] anonymous upload denied: HTTP 400 new row violates row-level security policy
+
+Limitations: no other tenant object was read, overwritten, or deleted.
+The anonymous upload test object is a 1x1 PNG and was deleted if the API allowed it.

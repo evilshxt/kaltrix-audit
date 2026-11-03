@@ -1,0 +1,37 @@
+{
+  "engagement": "kaltrixos-security-audit",
+  "target": "https://kaltrixos.com/",
+  "table": "subscriptions",
+  "exported_at": "2026-11-03T01:33:43.759Z",
+  "accessed_as": "authenticated test user",
+  "anon_status": 401,
+  "anon_rows_sample": null,
+  "auth_status": 200,
+  "row_count": 1,
+  "columns_exported": [
+    "id",
+    "business_id",
+    "plan",
+    "status",
+    "created_at",
+    "updated_at",
+    "expires_at",
+    "trial_started_at"
+  ],
+  "redacted_columns": [
+    "paystack_reference"
+  ],
+  "redaction_notes": "Own subscription only; paystack_reference omitted.",
+  "rows": [
+    {
+      "id": "ca7fe094-009f-4ee6-add0-c5ac2cebaa76",
+      "business_id": "2dd31e0d-be72-43e1-b32c-12a915d01fd0",
+      "plan": "pro",
+      "status": "trialing",
+      "created_at": "2026-11-02T04:46:34.994424+00:00",
+      "updated_at": "2026-11-03T01:10:25.296446+00:00",
+      "expires_at": "2026-12-02T04:46:34.994424+00:00",
+      "trial_started_at": "2026-11-02T04:46:34.994424+00:00"
+    }
+  ]
+}

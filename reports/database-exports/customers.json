@@ -1,0 +1,21 @@
+{
+  "engagement": "kaltrixos-security-audit",
+  "target": "https://kaltrixos.com/",
+  "table": "customers",
+  "exported_at": "2026-11-03T01:33:44.501Z",
+  "accessed_as": "authenticated test user",
+  "anon_status": 401,
+  "anon_rows_sample": null,
+  "auth_status": 200,
+  "row_count": 0,
+  "columns_exported": [],
+  "redacted_columns": [
+    "name",
+    "email",
+    "phone",
+    "address",
+    "notes"
+  ],
+  "redaction_notes": "PII/content columns omitted; only structural fields exported.",
+  "rows": []
+}

@@ -1,0 +1,52 @@
+KaltrixOS tier/storage probe (authorized test account only)
+Run: 2026-11-03T01:10:23.661Z
+Project host: fgkdkyhnokijbxyxcgug.supabase.co
+Test user: f3411683-3e65-4922-a2a0-3199f98c9e95
+
+Own business (safe fields):
+  business_name: Kaltrix Labs
+  industry: Technology
+  city: San Francisco
+  description: Kaltrix Labs is a full-stack web and mobile application development studio. We build custom SaaS platforms, internal tools, and AI-powered applications for startups and mid-market companies. Our team specializes in React/Next.js, Node.js, PostgreSQL, and modern cloud infrastructure. We handle everything from product discovery and UX design through deployment and ongoing maintenance.
+  logo_url: (empty)
+  phone: +14155550123
+  website_url: https://kaltrixlabs.io
+  slug: (empty)
+  email: (empty)
+  address: (empty)
+
+Own subscription:
+  plan: pro
+  status: trialing
+  expires_at: 2026-12-02T04:46:34.994424+00:00
+  trial_started_at: 2026-11-02T04:46:34.994424+00:00
+  paystack_reference: (null)
+
+Subscription write test: PATCH plan pro -> growth (then restore)
+[BLOCKED] plan update not applied: HTTP 200, rows=1 [{"id":"ca7fe094-009f-4ee6-add0-c5ac2cebaa76","business_id":"2dd31e0d-be72-43e1-b32c-12a915d01fd0","plan":"pro","status":"trialing","created_at":"2026-11-02T04:46:34.994424+00:00","paystack_reference":null,"updated_at":"
+  restore plan -> pro: HTTP 200, rows=1
+  post-restore row matches original: yes
+
+[WARN] bucket config not readable: HTTP 400 Bucket not found
+
+Storage list: HTTP 200, objects=0, own_prefix=0, other_uuid_prefix=0
+  (names not printed; count-only)
+
+Uploading assessment logo to logos/f3411683-3e65-4922-a2a0-3199f98c9e95-1793668226052.png (41427 bytes, image/png)
+[OK] logo upload accepted: HTTP 200
+  public read: HTTP 200, content-type=image/png, length=41427
+  updating own business fields: logo_url, email, address
+[OK] business update accepted: HTTP 200, logo_url set=true
+
+MIME test text/plain -> f3411683-3e65-4922-a2a0-3199f98c9e95-security-test-1793668227507.txt
+  [REJECTED] HTTP 400 mime type text/plain is not supported
+MIME test text/html -> f3411683-3e65-4922-a2a0-3199f98c9e95-security-test-1793668227507.html
+  [REJECTED] HTTP 400 mime type text/html is not supported
+MIME test image/svg+xml -> f3411683-3e65-4922-a2a0-3199f98c9e95-security-test-1793668227507.svg
+  [REJECTED] HTTP 400 mime type image/svg+xml is not supported
+
+Path-prefix test: upload with no user-ID prefix -> security-test-1793668228155.png
+  [REJECTED] HTTP 400 new row violates row-level security policy (prefix enforcement may be present)
+
+Limitations: cross-tenant storage overwrite/delete was not attempted; no other tenant object was touched.
+All writes were on the authorized test account/business and its own uploaded objects.

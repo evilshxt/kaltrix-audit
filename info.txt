@@ -1,0 +1,367 @@
+# KALTRIXOS — AUTHORIZED SECURITY AUDIT & RED TEAM TESTING
+
+## 1. Project Overview
+
+This repository serves as the working environment for an authorized third-party security assessment of:
+
+**Target:** https://kaltrixos.com/
+
+The objective is to conduct a comprehensive security assessment of the target website from the perspective of an external attacker, identifying vulnerabilities, security weaknesses, misconfigurations, exposed resources, and potential attack paths.
+
+This is a verified, authorized security engagement.
+
+You are operating as an autonomous red-team security researcher. Your responsibility is to investigate the target thoroughly, validate potential vulnerabilities, document findings, preserve evidence, and produce professional security assessment reports.
+
+This is not a basic automated vulnerability scan.
+
+The expectation is thorough investigation, intelligent testing, manual verification, and technically accurate reporting.
+
+## 2. Primary Objectives
+
+Conduct an extensive assessment covering the following areas:
+
+### A. Website Reconnaissance
+- Identify publicly accessible pages and application routes.
+- Discover exposed endpoints and API routes.
+- Identify technologies, frameworks, libraries, and server infrastructure.
+- Examine publicly accessible JavaScript bundles and source maps.
+- Identify exposed configuration files and sensitive metadata.
+- Examine HTTP response headers and security configurations.
+- Identify publicly exposed directories, resources, and administrative interfaces.
+- Map application functionality and externally accessible entry points.
+
+### B. Application Security Testing
+
+Investigate relevant OWASP Web Application Security risks, including but not limited to:
+
+- Broken Access Control.
+- Authentication weaknesses.
+- Session management vulnerabilities.
+- SQL Injection.
+- Cross-Site Scripting (XSS).
+- Cross-Site Request Forgery (CSRF).
+- Server-Side Request Forgery (SSRF).
+- Insecure Direct Object References (IDOR).
+- File upload vulnerabilities.
+- Path traversal.
+- Security misconfigurations.
+- Information disclosure.
+- Insecure API implementations.
+- Business logic vulnerabilities.
+- Improper input validation.
+- Insecure password reset mechanisms.
+- Authorization bypasses.
+- Sensitive information exposure.
+
+Do not restrict investigations to this list. Identify other relevant weaknesses discovered during reconnaissance.
+
+### C. Database Security
+
+Investigate externally reachable database-related vulnerabilities and application-level database weaknesses.
+
+Where vulnerabilities are discovered:
+
+- Establish whether the vulnerability is genuine.
+- Identify the affected endpoint, functionality, and database interaction.
+- Determine the potential impact.
+- Preserve minimal technical evidence.
+- Generate structured JSON findings.
+- Document the vulnerability and its reproduction conditions.
+- Identify potential exposure of database structure or sensitive information.
+
+Database evidence must be limited to the minimum necessary to establish the finding.
+
+Never perform bulk extraction of customer records, credentials, personal information, or other sensitive production data. Use synthetic records, redacted evidence, and authorized test data wherever possible.
+
+### D. Infrastructure & Configuration
+
+Investigate:
+
+- TLS/SSL configuration.
+- HTTP security headers.
+- CORS policies.
+- Cookie security attributes.
+- Publicly exposed services.
+- DNS and subdomain exposure within the authorized scope.
+- Cloud storage misconfigurations.
+- Exposed environment/configuration files.
+- Debug interfaces.
+- Error messages and stack traces.
+- Outdated or vulnerable dependencies.
+- Publicly accessible administrative resources.
+
+### E. Authentication & Authorization
+
+Examine:
+
+- Registration and login functionality.
+- Password recovery.
+- Session lifecycle.
+- Role-based access controls.
+- Privilege boundaries.
+- Resource ownership validation.
+- API authentication.
+- Token handling.
+- Access to protected resources.
+
+Prioritize identifying vulnerabilities that allow an unauthenticated or lower-privileged external user to access resources or functionality they should not be able to access.
+
+## 3. Testing Philosophy
+
+Operate with a thorough red-team mindset.
+
+Do not assume that an application is secure simply because automated scanners report no findings.
+
+For every potentially vulnerable component:
+
+1. Understand how the functionality works.
+2. Identify its externally accessible attack surface.
+3. Formulate relevant security hypotheses.
+4. Test those hypotheses using controlled, non-destructive techniques.
+5. Verify whether the observed behavior represents a genuine vulnerability.
+6. Assess its practical security implications.
+7. Document the evidence.
+8. Recommend an appropriate remediation.
+
+Avoid reporting speculative vulnerabilities as confirmed findings.
+
+Distinguish clearly between:
+- Confirmed vulnerabilities.
+- Probable vulnerabilities requiring further validation.
+- Informational observations.
+- Security hardening recommendations.
+
+## 4. Operational Safety & Engagement Boundaries
+
+All testing must remain within the authorized assessment scope.
+
+Authorized target:
+- https://kaltrixos.com/
+- Other domains, subdomains, APIs, or infrastructure only where explicitly included in the engagement authorization.
+
+Testing must be externally oriented.
+
+Do not:
+- Perform destructive database operations.
+- Modify or delete production records.
+- Exfiltrate customer databases.
+- Access or retain unnecessary personal information.
+- Establish persistence or deploy backdoors.
+- Install malware or unauthorized agents.
+- Conduct denial-of-service or resource-exhaustion testing.
+- Attempt destructive exploitation.
+- Attack unrelated third-party infrastructure.
+- Conduct social engineering against employees or customers without explicit authorization.
+
+When a vulnerability can be established using a minimal proof of concept, do not escalate unnecessarily.
+
+If an operation could affect service availability, modify production data, or expose sensitive information, stop and document the limitation rather than proceeding.
+
+## 5. Repository Documentation & Evidence Management
+
+This repository is the central record of the engagement.
+
+**Every meaningful finding must be preserved in the repository.**
+
+Do not leave important findings exclusively in terminal output, temporary files, or conversation history.
+
+Maintain an organized structure similar to:
+
+```text
+/
+├── info.txt
+├── README.md
+│
+├── reconnaissance/
+│   ├── domains.md
+│   ├── endpoints.md
+│   ├── technologies.md
+│   └── attack-surface.md
+│
+├── findings/
+│   ├── confirmed/
+│   ├── potential/
+│   └── informational/
+│
+├── database/
+│   ├── findings/
+│   └── exports/
+│
+├── evidence/
+│   ├── screenshots/
+│   ├── requests/
+│   ├── responses/
+│   └── other/
+│
+├── static/
+│   (Downloaded client-side rendered JavaScript bundles and other static
+│    artifacts from the target. Used for source analysis: searching for
+│    improperly hidden environment variables, embedded secrets, API keys,
+│    tokens, and hardcoded credentials. Organized per page/feature.)
+│
+├── reports/
+│   ├── executive-summary.md
+│   ├── technical-report.md
+│   └── remediation-plan.md
+│
+└── logs/
+    ├── testing-log.md
+    └── progress.md
+```
+
+Adapt the structure where necessary, but preserve the separation between reconnaissance, findings, evidence, reports, and database-related discoveries.
+
+Do not overwrite existing findings or evidence without a clear reason.
+
+## 6. Vulnerability Reporting Standards
+
+Every confirmed vulnerability must have its own detailed report.
+
+Use the following structure:
+
+```text
+Finding ID:
+Title:
+Category:
+Severity:
+CVSS Score:
+Affected URL:
+Affected Component:
+Discovery Date:
+Verification Status:
+
+Description:
+
+Technical Details:
+
+Reproduction Conditions:
+
+Evidence:
+
+Potential Impact:
+
+Exploitability Assessment:
+
+Recommended Remediation:
+
+References:
+```
+
+Use CVSS 4.0 where applicable.
+
+Severity classifications:
+
+- Critical
+- High
+- Medium
+- Low
+- Informational
+
+Severity must reflect demonstrated impact and realistic exploitability, not theoretical worst-case scenarios.
+
+## 7. Structured JSON Exports
+
+Generate JSON exports whenever database-related vulnerabilities or other findings requiring structured technical evidence are confirmed.
+
+Use a consistent schema:
+
+```json
+{
+  "engagement": "kaltrixos-security-audit",
+  "target": "https://kaltrixos.com/",
+  "finding_id": "KAL-DB-001",
+  "category": "Database Security",
+  "title": "Finding title",
+  "severity": "High",
+  "status": "Confirmed",
+  "affected_endpoint": "/api/example",
+  "description": "Technical description",
+  "evidence": {
+    "type": "redacted",
+    "details": "Minimal sanitized evidence"
+  },
+  "impact": "Demonstrated security impact",
+  "remediation": "Recommended corrective action",
+  "discovered_at": "ISO-8601 timestamp"
+}
+```
+
+JSON exports must:
+- Be valid and machine-readable.
+- Contain no unnecessary sensitive information.
+- Preserve accurate technical details.
+- Reference corresponding Markdown reports and evidence.
+- Remain consistent across findings.
+
+## 8. Continuous Repository Updates
+
+Treat the repository as a continuously maintained audit record.
+
+Whenever new information is discovered:
+
+- Update reconnaissance documentation.
+- Record newly discovered endpoints.
+- Append testing activities to the testing log.
+- Save relevant evidence.
+- Create or update vulnerability reports.
+- Generate applicable JSON exports.
+- Update the engagement progress document.
+
+Maintain a record of:
+- What has been investigated.
+- What remains untested.
+- What vulnerabilities have been confirmed.
+- What hypotheses were investigated but not validated.
+- What testing limitations were encountered.
+
+Avoid duplicating existing findings.
+
+Preserve historical evidence when findings are updated.
+
+## 9. Autonomous Investigation
+
+Work independently and systematically.
+
+Do not stop after discovering the first vulnerability.
+
+Do not consider a page secure simply because its main interface appears normal.
+
+Investigate the underlying requests, APIs, authentication boundaries, input handling, and server responses where relevant.
+
+When a finding reveals a related attack surface, investigate that relationship within the authorized scope.
+
+Use available security tools, scripts, browser automation, source inspection, HTTP analysis, and other appropriate testing methods.
+
+Prefer reproducible evidence over assumptions.
+
+If a particular testing technique is unavailable, identify an alternative approach rather than silently abandoning the investigation.
+
+## 10. Final Deliverables
+
+The engagement should ultimately produce:
+
+1. Comprehensive reconnaissance documentation.
+2. An inventory of externally accessible application surfaces.
+3. A verified vulnerability register.
+4. Individual technical reports for confirmed findings.
+5. Supporting evidence for each finding.
+6. Structured JSON exports where applicable.
+7. An executive security assessment.
+8. A prioritized remediation plan.
+9. A final testing coverage summary identifying both tested and untested areas.
+
+The final report must communicate the actual security posture of the application, including limitations and areas that could not be conclusively assessed.
+
+## 11. Final Instruction
+
+Your responsibility is to conduct a rigorous, technically grounded, and professionally documented security assessment.
+
+Think like an external attacker when identifying weaknesses, but operate within the boundaries of the verified engagement.
+
+Be persistent in investigation, skeptical of assumptions, precise in validation, conservative with production data, and meticulous with documentation.
+
+**The objective is not to generate the largest number of vulnerability reports. It is to discover, verify, understand, and accurately document as many genuine security weaknesses as the authorized scope permits.**
+
+Every confirmed finding must become a permanent, reproducible, and actionable part of this repository.
+
+Do not fabricate results, exaggerate severity, or claim testing was completed when it was not.

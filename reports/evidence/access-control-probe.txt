@@ -1,0 +1,49 @@
+KaltrixOS access-control probe (read-only)
+Generated: 2026-11-03T01:13:17.290Z
+Target: https://fgkdkyhnokijbxyxcgug.supabase.co
+User: f3411683-3e65-4922-a2a0-3199f98c9e95 role=authenticated confirmed=true
+No writes are performed by this script. No PII values are recorded.
+
+=== Anonymous vs authenticated table access ===
+  businesses                 anon=200 rows=3             auth=200 rows=3
+  profiles                   anon=200 rows=0             auth=200 rows=1
+  leads                      anon=200 rows=0             auth=200 rows=0
+  email_logs                 anon=200 rows=0             auth=200 rows=0
+  customers                  anon=401 42501 permission denied for table businesses auth=200 rows=0
+  subscriptions              anon=401 42501 permission denied for table businesses auth=200 rows=1
+  bookings                   anon=401 42501 permission denied for table businesses auth=200 rows=0
+  invoices                   anon=401 42501 permission denied for table businesses auth=200 rows=0
+  messages                   anon=401 42501 permission denied for table messages auth=200 rows=0
+  notifications              anon=401 42501 permission denied for table notifications auth=200 rows=0
+  inventory_items            anon=401 42501 permission denied for table inventory_items auth=200 rows=0
+  business_payment_details   anon=401 42501 permission denied for table business_payment_detai auth=200 rows=0
+  feedback                   anon=401 42501 permission denied for table feedback auth=200 rows=0
+  reviews                    anon=401 42501 permission denied for table businesses auth=200 rows=1
+  listings                   anon=401 42501 permission denied for table businesses auth=200 rows=3
+  expenses                   anon=401 42501 permission denied for table businesses auth=200 rows=0
+  rate_limits                anon=401 42501 permission denied for table rate_limits auth=403 42501 permission denied for table rate_limits
+
+=== businesses column exposure ===
+  * (all)                  anon=401 42501 permission denied for table businesses auth=200 rows=1
+  app discover columns     anon=200 rows=1             auth=200 rows=1
+  id                       anon=200 rows=1             auth=200 rows=1
+  email                    anon=200 rows=1             auth=200 rows=1
+  address                  anon=200 rows=1             auth=200 rows=1
+  phone                    anon=200 rows=1             auth=200 rows=1
+  user_id                  anon=401 42501 permission denied for table businesses auth=200 rows=1
+  trust_signals            anon=401 42501 permission denied for table businesses auth=200 rows=1
+
+=== businesses over-exposure counts (auth) ===
+  status=200 range=0-9/10 returned=10
+  distinct user_ids=10 email_non_empty=3 phone_non_empty=10 address_non_empty=2
+
+=== cross-tenant profile read (id only) ===
+  GET /rest/v1/profiles?select=id&id=eq.<other> -> 200 rows=0
+
+=== Summary ===
+  CONFIRMED: anon can read email/address for all businesses (column-level grants).
+  CONFIRMED: authenticated users can read all columns including user_id/trust_signals.
+  CONFIRMED: authenticated users can read other businesses listings (see app-logic-probe.txt).
+  NEGATIVE: cross-tenant profile read returned 0 rows.
+  NEGATIVE: get_business_pulse/get_inventory_overview reject non-owned business ids.
+  NEGATIVE (documented in the report, not re-run here): cross-tenant UPDATE blocked; role/verification writes denied.

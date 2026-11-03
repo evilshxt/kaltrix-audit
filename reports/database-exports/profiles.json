@@ -1,0 +1,32 @@
+{
+  "engagement": "kaltrixos-security-audit",
+  "target": "https://kaltrixos.com/",
+  "table": "profiles",
+  "exported_at": "2026-11-03T01:33:43.346Z",
+  "accessed_as": "authenticated test user",
+  "anon_status": 200,
+  "anon_rows_sample": 0,
+  "auth_status": 200,
+  "row_count": 1,
+  "columns_exported": [
+    "id",
+    "name",
+    "email",
+    "role",
+    "created_at"
+  ],
+  "redacted_columns": [
+    "name (masked)",
+    "email (masked)"
+  ],
+  "redaction_notes": "Own profile only; name and email masked.",
+  "rows": [
+    {
+      "id": "f3411683-3e65-4922-a2a0-3199f98c9e95",
+      "name": "x***",
+      "email": "o***@***",
+      "role": "business",
+      "created_at": "2026-11-02T02:52:15.260133+00:00"
+    }
+  ]
+}

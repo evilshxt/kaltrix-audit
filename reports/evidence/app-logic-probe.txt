@@ -1,0 +1,54 @@
+KaltrixOS app-logic probe (read-only)
+Generated: 2026-11-03T00:57:35.320Z
+Target: https://fgkdkyhnokijbxyxcgug.supabase.co
+User: f3411683-3e65-4922-a2a0-3199f98c9e95 role=authenticated confirmed=true
+Own business resolved: yes; other tenants sampled: 3
+No writes are performed. No PII or secret values are recorded.
+
+=== New tables: anon vs authenticated ===
+  listings     anon=401 42501 permission denied for table businesses auth=200 rows=3
+  expenses     anon=401 42501 permission denied for table businesses auth=200 rows=0
+
+=== Anonymous column/filter exposure (own identifiers only) ===
+  profiles?select=name,role&id=own                         200 rows=0
+  businesses?select=*&user_id=own                          401 42501 permission denied for table businesses
+  subscriptions?select=plan,status,expires_at&business_id=own 401 42501 permission denied for table businesses
+  business_payment_details?select=bank...&business_id=own  401 42501 permission denied for table business_pay
+  listings?select=*&business_id=own                        401 42501 permission denied for table businesses
+  expenses?select=*&business_id=own                        401 42501 permission denied for table businesses
+
+=== Cross-tenant reads (authenticated) ===
+  businesses?select=*&id=other                                   200 rows=1 non_null=[phone,user_id,trust_signals]
+  profiles?select=name,role&id=other_owner                       200 rows=0
+  subscriptions?select=plan,status,expires_at&business_id=other  200 rows=0
+  business_payment_details?select=bank...&business_id=other      200 rows=0
+  listings?select=*&business_id=other                            200 rows=1 non_null=[id,name,price]
+  expenses?select=*&business_id=other                            200 rows=0
+  bookings?select=*&business_id=other                            200 rows=0
+  customers?select=*&business_id=other                           200 rows=0
+  invoices?select=*&business_id=other                            200 rows=0
+  messages?select=*&business_id=other                            200 rows=0
+  notifications?select=*&business_id=other                       200 rows=0
+
+=== RPCs: own vs other tenants (authenticated) ===
+  get_business_pulse own          200 has_any_data=false bookings=null customers=null invoices=null listings=null expenses=null revenue_nonzero=false profit_nonzero=false
+  get_business_pulse other        200 error=not_authorized
+  get_business_pulse other        200 error=not_authorized
+  get_business_pulse other        200 error=not_authorized
+  get_inventory_overview own      200 total=0 untracked_total=0 items=0
+  get_inventory_overview other    403 code=42501 message=not_authorized
+  get_inventory_overview other    403 code=42501 message=not_authorized
+  get_inventory_overview other    403 code=42501 message=not_authorized
+
+=== RPCs: anonymous (other tenant) ===
+  get_business_pulse other        401 code=42501 message=permission denied for table businesses
+  get_inventory_overview other    401 code=42501 message=permission denied for function get_inven
+
+=== Anonymous profile read (other owner id) ===
+  profiles?select=name,role&id=other_owner  200 rows=0
+
+=== Interpretation hints ===
+  - 0 rows / 401 / 403 on cross-tenant reads = control held.
+  - rows > 0 on a cross-tenant read or RPC = confirmed cross-tenant exposure.
+  - RPC 200 with has_any_data=true or total/items>0 for another tenant = IDOR.
+  - anon 200 on profiles/subscriptions/business_payment_details/listings/expenses = anonymous exposure.

@@ -1,0 +1,21 @@
+# Full original working tree, archived and intentionally not tracked.
+personal/
+
+# Local bearer-token cache written by reports/scripts/login.js.
+reports/scripts/session.json
+
+# Live credentials. Only the *.example.json templates are tracked.
+reports/credentials/credentials.json
+reports/credentials/secrets.json
+
+# Local environment files and private keys.
+.env
+.env.*
+*.pem
+*.key
+
+# Tooling / OS noise.
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
