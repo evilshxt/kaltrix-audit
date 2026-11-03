@@ -6,7 +6,8 @@ This folder is the client-facing report package within the assessment repository
 
 | Path | Purpose |
 |---|---|
-| `KaltrixOS-Security-Assessment-2026-11-03.md` | Main red-team assessment report |
+| `KaltrixOS-Security-Assessment-2026-11-03.md` | Main external security assessment report |
+| `ADMIN-SURFACE-ASSESSMENT-2026-11-03.md` | Admin surface and privilege escalation assessment (negative for tested external vectors) |
 | `credentials/credentials.example.json` | Template for the authorized test-account credentials |
 | `credentials/secrets.example.json` | Template for the Supabase project URL and anon key |
 | `credentials/README.md` | Local credential setup instructions |
@@ -18,6 +19,12 @@ This folder is the client-facing report package within the assessment repository
 | `scripts/business-setup-check.js` | Completes the test-business slug if missing and checks anon/public-page exposure |
 | `scripts/storage-access-probe.js` | Anon/auth storage metadata, list, and upload checks |
 | `scripts/export-tables.js` | Regenerates `database-exports/` (17 tables) |
+| `scripts/admin-surface-probe.js` | Checks admin routes with a constructed `@supabase/ssr` cookie and follows no redirects |
+| `scripts/admin-db-probe.js` | Tests admin-like table names and the PostgREST OpenAPI endpoint; does not invoke guessed RPCs |
+| `scripts/role-escalation-probe.js` | Tests test-account-only `profiles.role` updates and profile row visibility |
+| `scripts/middleware-bypass-probe.js` | Tests CVE-2025-29927 and header-spoofing variants against protected routes |
+| `scripts/comprehensive-db-probe.js` | Tests GraphQL, admin-like columns, and the OpenAPI endpoint |
+| `scripts/jwt-decode.js` | Decodes JWT claims without verification; PII values are redacted |
 | `database-exports/*.json` | One JSON file per Supabase table, with sensitive fields redacted |
 | `database-exports/_index.json` | Table index with auth/anon status and row counts |
 | `evidence/access-control-probe.txt` | Captured output of the access-control probe |
@@ -26,6 +33,12 @@ This folder is the client-facing report package within the assessment repository
 | `evidence/business-setup-check.txt` | Captured output of the business setup/public-page check |
 | `evidence/storage-access-probe.txt` | Captured output of the anon/auth storage access probe |
 | `evidence/har-request-inventory.txt` | Sanitized inventory of dashboard requests (no values) |
+| `evidence/admin-surface-probe.txt` | Admin route and `_next/data` output for unauthenticated and test-account requests |
+| `evidence/admin-db-probe.txt` | Admin-like table and OpenAPI probe output |
+| `evidence/role-escalation-probe.txt` | Test-account role update and profile visibility output (PII redacted) |
+| `evidence/middleware-bypass-probe.txt` | Middleware bypass variant output |
+| `evidence/comprehensive-db-probe.txt` | GraphQL, admin-column, and OpenAPI probe output |
+| `evidence/jwt-decode.txt` | JWT claims analysis output (PII redacted) |
 
 ## Quick start
 
@@ -54,6 +67,14 @@ node scripts/storage-access-probe.js
 
 # 6. Regenerate the per-table JSON exports
 node scripts/export-tables.js
+
+# 7. Optional: reproduce the admin surface checks
+node scripts/admin-surface-probe.js
+node scripts/admin-db-probe.js
+node scripts/role-escalation-probe.js
+node scripts/middleware-bypass-probe.js
+node scripts/comprehensive-db-probe.js
+node scripts/jwt-decode.js
 ```
 
 ## Data-handling notes
@@ -63,6 +84,7 @@ node scripts/export-tables.js
 - The authorized test business was completed with a logo, synthetic contact values, and slug `kaltrix-labs-assessment`; these are test data, not customer data. The `businesses` export still omits `email`, `address`, `user_id`, and `trust_signals`.
 - Tables that were empty at export time still have a JSON file with the access status, row count, and redaction notes.
 - No access tokens or service-role keys are stored in this package. `scripts/session.json` is local-only and gitignored.
+- JWT metadata values in the admin report and evidence are redacted; the test-account email and display name are not included.
 - Only the `credentials/*.example.json` templates are committed. The filled `credentials.json` and `secrets.json` are local-only and gitignored.
 - Treat the local credential files as sensitive even though the anon key is shipped to every browser. Do not add a Supabase service-role key here.
 

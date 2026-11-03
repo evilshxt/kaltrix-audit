@@ -1,0 +1,33 @@
+﻿=== Admin Database Probe ===
+
+--- Admin-like tables (anon) ---
+
+admin_users: 404 (PGRST205: Could not find the table 'public.admin_users' in the schema cache)
+admin_logs: 404 (PGRST205: Could not find the table 'public.admin_logs' in the schema cache)
+admin_settings: 404 (PGRST205: Could not find the table 'public.admin_settings' in the schema cache)
+permissions: 404 (PGRST205: Could not find the table 'public.permissions' in the schema cache)
+roles: 404 (PGRST205: Could not find the table 'public.roles' in the schema cache)
+audit_logs: 404 (PGRST205: Could not find the table 'public.audit_logs' in the schema cache)
+system_config: 404 (PGRST205: Could not find the table 'public.system_config' in the schema cache)
+
+--- Admin-like tables (authenticated) ---
+
+admin_users: 404 (PGRST205: Could not find the table 'public.admin_users' in the schema cache)
+admin_logs: 404 (PGRST205: Could not find the table 'public.admin_logs' in the schema cache)
+admin_settings: 404 (PGRST205: Could not find the table 'public.admin_settings' in the schema cache)
+permissions: 404 (PGRST205: Could not find the table 'public.permissions' in the schema cache)
+roles: 404 (PGRST205: Could not find the table 'public.roles' in the schema cache)
+audit_logs: 404 (PGRST205: Could not find the table 'public.audit_logs' in the schema cache)
+system_config: 404 (PGRST205: Could not find the table 'public.system_config' in the schema cache)
+
+--- PostgREST OpenAPI /rest/v1/ ---
+
+anon: 401 application/json;charset=UTF-8 (101 bytes)
+  Invalid API key
+authenticated: 401 application/json;charset=UTF-8 (101 bytes)
+  Invalid API key
+
+--- Test-account profile role ---
+
+Status: 200
+Body: [{"role":"business"}]

@@ -1,0 +1,106 @@
+﻿Loaded local session; SSR cookie length: 3076 bytes
+
+--- Unauthenticated ---
+
+/admin
+  Status: 307
+  Location: /login
+  Content-Type: text/plain
+  Body length: 15
+  Title: (none)
+  Login form: NO
+  Dashboard shell: NO
+  Admin hints: NO
+
+/dashboard/admin
+  Status: 307
+  Location: /login
+  Content-Type: text/plain
+  Body length: 15
+  Title: (none)
+  Login form: NO
+  Dashboard shell: NO
+  Admin hints: NO
+
+/dashboard
+  Status: 307
+  Location: /login
+  Content-Type: text/plain
+  Body length: 15
+  Title: (none)
+  Login form: NO
+  Dashboard shell: NO
+  Admin hints: NO
+
+/api/admin
+  Status: 404
+  Location: (none)
+  Content-Type: text/html; charset=utf-8
+  Body length: 15876
+  Title: KaltrixOS ΓÇö Africa&#x27;s Business Operating System
+  Login form: NO
+  Dashboard shell: NO
+  Admin hints: NO
+
+/_next/data/dashboard/admin.json
+  Status: 307
+  Location: /_next/data/dashboard/login.json
+  Content-Type: text/plain
+  Body length: 15
+  Title: (none)
+  Login form: NO
+  Dashboard shell: NO
+  Admin hints: NO
+
+--- Authenticated (SSR cookie) ---
+
+/admin
+  Status: 307
+  Location: /dashboard
+  Content-Type: text/plain
+  Body length: 15
+  Title: (none)
+  Login form: NO
+  Dashboard shell: NO
+  Admin hints: NO
+
+/dashboard/admin
+  Status: 404
+  Location: (none)
+  Content-Type: text/html; charset=utf-8
+  Body length: 15876
+  Title: KaltrixOS ΓÇö Africa&#x27;s Business Operating System
+  Login form: NO
+  Dashboard shell: NO
+  Admin hints: NO
+
+/dashboard
+  Status: 200
+  Location: (none)
+  Content-Type: text/html; charset=utf-8
+  Body length: 16444
+  Title: KaltrixOS ΓÇö Africa&#x27;s Business Operating System
+  Login form: NO
+  Dashboard shell: NO
+  Admin hints: NO
+
+/api/admin
+  Status: 404
+  Location: (none)
+  Content-Type: text/html; charset=utf-8
+  Body length: 15876
+  Title: KaltrixOS ΓÇö Africa&#x27;s Business Operating System
+  Login form: NO
+  Dashboard shell: NO
+  Admin hints: NO
+
+/_next/data/dashboard/admin.json
+  Status: 307
+  Location: /_next/data/dashboard/dashboard.json
+  Content-Type: text/plain
+  Body length: 15
+  Title: (none)
+  Login form: NO
+  Dashboard shell: NO
+  Admin hints: NO
+

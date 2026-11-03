@@ -3,7 +3,7 @@
 **Target:** https://kaltrixos.com/  
 **Engagement:** Authorized external web application and backend security assessment  
 **Assessment window:** 2026-10-31 to 2026-11-03  
-**Classification:** Confidential — Client Deliverable  
+**Classification:** Client Deliverable — Redacted  
 **Reference:** `../info.txt`
 
 ---
@@ -46,7 +46,7 @@ The tier and logo paths were also exercised. A direct owner `PATCH` to `subscrip
 - No Supabase `service_role` key was available or used.
 - Only one confirmed test account was available (email confirmation required; no mailbox access for a second account).
 - The `logos` bucket was tested with the authorized test account; cross-tenant storage overwrite/delete was not attempted.
-- `/admin` is a client-side shell; no server-side admin surface was exposed.
+- `/admin` is an authentication-gated redirect to `/dashboard`; no separate server-side admin interface was found in the tested routes.
 - The authenticated dashboard and upgrade flow were reviewed from two captured HARs; live browser automation was not used.
 - The Paystack webhook implementation was not available; no live payment was made.
 - TLS deep scan, DNS/subdomain enumeration, source-map review, cookie attributes, password-reset token handling, and auth rate limiting were not completed in this pass.
@@ -254,6 +254,8 @@ The following checks produced negative results (the control worked):
 
 The dashboard routes are client-rendered. The client bundle references the Supabase Realtime path `/api/broadcast`; `/api/feedback` now returns `404`.
 
+`/admin` redirects unauthenticated callers to `/login` and authenticated callers to `/dashboard`. `/dashboard/admin` and `/api/admin` return `404`; there is no separate admin route in the tested surface.
+
 ### PostgREST access matrix
 
 | Table | Anon | Authenticated |
@@ -343,11 +345,11 @@ The `/dashboard/upgrade` page uses Paystack Inline. The browser sends `amount`, 
 ## 9. Limitations and Untested Areas
 
 - **Empty tables** (`customers`, `bookings`, `invoices`, `messages`, `notifications`, `inventory_items`, `expenses`, `business_payment_details`, `email_logs`, `leads`) prevent proving row-level scope. KAL-DB-003 must be revisited when rows exist.
+- **Admin surface assessment:** A dedicated assessment was conducted on 2026-11-03. `/admin` is an authentication-gated redirect to `/dashboard`; `/dashboard/admin` and `/api/admin` are `404`. Tested admin-like table names returned `404`, and no admin claims were present in the test account's JWT. PostgREST OpenAPI is not exposed (`401` anon/auth), so schema and RPC enumeration was not exhaustive. See `ADMIN-SURFACE-ASSESSMENT-2026-11-03.md` for details.
 - **One confirmed account**; email confirmation blocks a second account without mailbox access. Cross-tenant behavior was tested against existing businesses and their owner IDs.
 - **Storage:** the `logos` bucket is usable by authenticated owners; anonymous uploads and non-image MIME types were denied. Cross-tenant overwrite/delete, cross-tenant object reads beyond the empty list response, and the bucket's declared metadata (`GET /storage/v1/bucket/logos` returned `400 Bucket not found`) were not fully testable. The uploaded logo is the authorized test business's own image.
 - **Public business page:** `/business/kaltrix-labs-assessment` returned `200` and contained the business name, but the logo is hydrated client-side; the initial HTML did not contain the logo URL. No browser automation was used, so the rendered logo and other client-side states were not visually verified.
 - **Payment webhook:** the Paystack webhook's signature, amount, currency, metadata, and idempotency checks were not tested; no live payment was made. KAL-BL-001 remains potential.
-- **No admin surface**; `/admin` is a client-side shell.
 - **TLS deep scan, DNS/subdomain enumeration, source maps, cookie attributes, password-reset token handling, and auth rate limiting** remain untested.
 - **Dashboard and upgrade-flow review** are based on two captured HARs. The exports stripped the `Authorization` header, so the HARs do not themselves prove anonymous access; identity was confirmed by matching the response to the authorized test account. Live browser automation was not used.
 
@@ -363,14 +365,22 @@ The `/dashboard/upgrade` page uses Paystack Inline. The browser sends `amount`, 
 | Business setup/public-page check | `evidence/business-setup-check.txt` |
 | Anonymous/auth storage access transcript | `evidence/storage-access-probe.txt` |
 | HAR request inventory (sanitized) | `evidence/har-request-inventory.txt` |
+| Admin surface probe output | `evidence/admin-surface-probe.txt` |
+| Admin database probe output | `evidence/admin-db-probe.txt` |
+| Role escalation probe output | `evidence/role-escalation-probe.txt` |
+| Middleware bypass probe output | `evidence/middleware-bypass-probe.txt` |
+| Comprehensive database probe output | `evidence/comprehensive-db-probe.txt` |
+| JWT decode output | `evidence/jwt-decode.txt` |
+| Admin surface assessment report | `ADMIN-SURFACE-ASSESSMENT-2026-11-03.md` |
 | Raw dashboard HAR | `../personal/har/kaltrixos.com.har` (retained internally; not included in this package) |
 | Raw upgrade/Paystack HAR | `../personal/har/kaltrixos.com.second.har` (retained internally; not included in this package) |
 | Per-table JSON exports (redacted) | `database-exports/*.json` |
 | Table index | `database-exports/_index.json` |
 | Reproducible probes | `scripts/access-control-probe.js`, `scripts/probe-app-logic.js`, `scripts/tier-storage-probe.js`, `scripts/business-setup-check.js`, `scripts/storage-access-probe.js`, `scripts/export-tables.js` |
+| Admin probes | `scripts/admin-surface-probe.js`, `scripts/admin-db-probe.js`, `scripts/role-escalation-probe.js`, `scripts/middleware-bypass-probe.js`, `scripts/comprehensive-db-probe.js`, `scripts/jwt-decode.js` |
 | Login helper | `scripts/login.js` |
 | Live key recovery | `scripts/fetch-live-key.js` |
-| Credentials | `credentials/` (authorized test account + public anon key) |
+| Credentials | `credentials/*.example.json` templates; live files are local-only and gitignored |
 | Original working tree | `../personal/` (internal archive; not included in this package) |
 
 ### Reproduce
@@ -383,6 +393,14 @@ node scripts/tier-storage-probe.js      # writes a logo/profile fields on the te
 node scripts/business-setup-check.js    # sets the test-business slug if missing; checks public page
 node scripts/storage-access-probe.js    # anon/auth storage checks; anon upload is blocked
 node scripts/export-tables.js
+
+# Admin surface assessment (additional scripts)
+node scripts/admin-surface-probe.js
+node scripts/admin-db-probe.js
+node scripts/role-escalation-probe.js
+node scripts/middleware-bypass-probe.js
+node scripts/comprehensive-db-probe.js
+node scripts/jwt-decode.js
 ```
 
 ### Data handling

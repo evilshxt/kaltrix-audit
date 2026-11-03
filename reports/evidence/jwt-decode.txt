@@ -1,0 +1,55 @@
+﻿=== Session Info ===
+
+Keys: [
+  'access_token',
+  'token_type',
+  'expires_in',
+  'expires_at',
+  'refresh_token',
+  'user',
+  'weak_password'
+]
+Refresh token present: true
+
+=== Access Token (JWT, PII redacted) ===
+
+Header: {
+  "alg": "ES256",
+  "kid": "3cbbeaf7-dd18-4feb-913e-ee39ef4268fc",
+  "typ": "JWT"
+}
+
+Payload: {
+  "iss": "https://fgkdkyhnokijbxyxcgug.supabase.co/auth/v1",
+  "sub": "<redacted>",
+  "aud": "authenticated",
+  "exp": 1793677736,
+  "iat": 1793674136,
+  "email": "<redacted>",
+  "phone": "<redacted>",
+  "app_metadata": {
+    "provider": "email",
+    "providers": [
+      "email"
+    ]
+  },
+  "user_metadata": {
+    "email": "<redacted>",
+    "email_verified": true,
+    "name": "<redacted>",
+    "phone_verified": false,
+    "sub": "<redacted>"
+  },
+  "role": "authenticated",
+  "aal": "aal1",
+  "amr": [
+    {
+      "method": "password",
+      "timestamp": 1793674136
+    }
+  ],
+  "session_id": "<redacted>",
+  "is_anonymous": false
+}
+
+Signature length: 86

@@ -1,0 +1,21 @@
+﻿=== Comprehensive Database Probe ===
+
+--- pg_graphql ---
+
+Status: 200
+Body preview: {"errors": [{"message": "pg_graphql extension is not enabled."}]}
+
+--- Known tables: admin-like columns ---
+
+profiles.role: present (200)
+
+--- PostgREST OpenAPI /rest/v1/ ---
+
+anon: 401 application/json;charset=UTF-8 (101 bytes)
+authenticated: 401 application/json;charset=UTF-8 (101 bytes)
+
+--- Profile rows visible to test account ---
+
+Status: 200
+Rows visible: 1
+Roles: business

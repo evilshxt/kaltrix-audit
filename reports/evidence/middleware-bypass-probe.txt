@@ -1,0 +1,31 @@
+﻿=== Middleware Bypass Probe ===
+
+No session cookie is sent; a bypass must work without authentication.
+
+--- /dashboard ---
+
+CVE-2025-29927 middleware x5: 307 /login (15 bytes)
+CVE-2025-29927 src/middleware x5: 307 /login (15 bytes)
+CVE-2025-29927 pages/_middleware x5: 307 /login (15 bytes)
+single middleware segment: 307 /login (15 bytes)
+single src/middleware segment: 307 /login (15 bytes)
+x-middleware-rewrite: 307 /login (15 bytes)
+x-original-url: 307 /login (15 bytes)
+x-rewrite-url: 307 /login (15 bytes)
+
+--- /admin ---
+
+CVE-2025-29927 middleware x5: 307 /login (15 bytes)
+CVE-2025-29927 src/middleware x5: 307 /login (15 bytes)
+CVE-2025-29927 pages/_middleware x5: 307 /login (15 bytes)
+single middleware segment: 307 /login (15 bytes)
+single src/middleware segment: 307 /login (15 bytes)
+x-middleware-rewrite: 307 /login (15 bytes)
+x-original-url: 307 /login (15 bytes)
+x-rewrite-url: 307 /login (15 bytes)
+
+--- _next/data endpoints ---
+
+/_next/data/admin.json: 404 (no redirect) (15876 bytes)
+/_next/data/dashboard/admin.json: 307 /_next/data/dashboard/login.json (15 bytes)
+/_next/data/build-manifest.json: 404 (no redirect) (15876 bytes)
